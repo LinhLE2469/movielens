@@ -80,7 +80,7 @@ def main():
     movies_df, ratings_df = extract(spark, args.input)
     final_df = transform(movies_df, ratings_df)
 
-# Write to CSV with proper configuration
+# Write to parquet with proper configuration
     (final_df.write
         .mode("overwrite")
         .option("header", "true")
