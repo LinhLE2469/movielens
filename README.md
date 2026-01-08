@@ -39,7 +39,7 @@ movielens/
     file:///Users/<YOUR_USER>/.../movielens/raw \
     file:///Users/<YOUR_USER>/.../movielens/silver
 
-# MovieLens – Spark ETL – Local run
+# MovieLens – Spark ETL – Hadoop cluster
 
   1. Cluster setup (Docker) Start containers: 
   docker start hadoop-master hadoop-worker1 hadoop-worker2
