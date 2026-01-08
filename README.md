@@ -71,9 +71,13 @@ start-yarn.sh
 
 jps
 
+You have to see : NameNode SecondaryNameNode ResourceManager
+
 6. Verify data inside container
 
 ls -lh /tmp/movies.csv /tmp/ratings.csv
+
+ls -lh /tmp/movies.csv /tmp/movies.csv
 
 7. Load data into HDFS (RAW)
 
@@ -104,3 +108,9 @@ spark-submit --master local[*] /tmp/spark_ETL.py \
 10. Verify Spark output in HDFS
 
 hdfs dfs -ls /data/movielens/silver
+
+Expected output:
+
+_SUCCESS
+
+part-*.parquet (Snappy compressed)
