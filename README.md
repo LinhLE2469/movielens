@@ -1,6 +1,4 @@
-# MovieLens – Spark ETL
-
-1. TEST LOCAL
+MovieLens – Spark ETL
 
 This folder contains the Spark ETL script that builds a **silver** dataset from MovieLens CSV files using Apache Spark (local mode).
 
@@ -13,33 +11,8 @@ The final dataset contains:
 - `avg_rating`
 - `genre`  *(1 row per genre)*
 
-## Project structure
-Recommended layout:
-# MovieLens – Spark ETL (Member 1) – Local run
-
-This folder contains the Spark ETL script that builds a **silver** dataset from MovieLens CSV files using Apache Spark (local mode).
-
-## Output schema (silver)
-The final dataset contains:
-- `movieId`
-- `movieName`
-- `year_of_release`
-- `number_ratings`
-- `avg_rating`
-- `genre`  *(1 row per genre)*
 
 # MovieLens – Spark ETL – Local run
-
-This folder contains the Spark ETL script that builds a **silver** dataset from MovieLens CSV files using Apache Spark (local mode).
-
-## Output schema (silver)
-The final dataset contains:
-- `movieId`
-- `movieName`
-- `year_of_release`
-- `number_ratings`
-- `avg_rating`
-- `genre`  *(1 row per genre)*
 
 ## Project structure
 Recommended layout:
@@ -66,7 +39,7 @@ spark-submit spark_ETL.py \
   file:///Users/<YOUR_USER>/.../movielens/raw \
   file:///Users/<YOUR_USER>/.../movielens/silver
 
-2. TEST Hadoop Cluster
+# 2. TEST Hadoop Cluster
 
   1. Cluster setup (Docker) Start containers: 
   docker start hadoop-master hadoop-worker1 hadoop-worker2
@@ -102,11 +75,7 @@ spark-submit spark_ETL.py \
   11. Verify 
   hdfs dfs -ls /data/movielens/silver
   the output should be:
-/data/movielens/silver/
-├── _SUCCESS
-├── part-00000-*.snappy.parquet
-├── part-00001-*.snappy.parquet
-└── part-00002-*.snappy.parquet
+
 
 
 
