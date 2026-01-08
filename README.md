@@ -1,6 +1,6 @@
 MovieLens – Spark ETL
 
-This folder contains the Spark ETL script that builds a **silver** dataset from MovieLens CSV files using Apache Spark (local mode).
+This folder contains the Spark ETL script that builds a **silver** dataset from MovieLens CSV files using Apache Spark.
 
 ## Output schema (silver)
 The final dataset contains:
@@ -39,7 +39,7 @@ spark-submit spark_ETL.py \
   file:///Users/<YOUR_USER>/.../movielens/raw \
   file:///Users/<YOUR_USER>/.../movielens/silver
 
-# 2. TEST Hadoop Cluster
+# RUN with Hadoop Cluster
 
   1. Cluster setup (Docker) Start containers: 
   docker start hadoop-master hadoop-worker1 hadoop-worker2
