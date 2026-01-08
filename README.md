@@ -28,18 +28,18 @@ movielens/
 - **Apache Spark**: installed locally (e.g., via Homebrew on macOS)
 - **Python**: 3.9+
 
-Check:
-```bash
-java -version
-spark-submit --version
-python3 --version
+  Check:
+  ```bash
+  java -version
+  spark-submit --version
+  python3 --version
 
-# Run ETL (local)
-spark-submit spark_ETL.py \
-  file:///Users/<YOUR_USER>/.../movielens/raw \
-  file:///Users/<YOUR_USER>/.../movielens/silver
+  # Run ETL (local)
+  spark-submit spark_ETL.py \
+    file:///Users/<YOUR_USER>/.../movielens/raw \
+    file:///Users/<YOUR_USER>/.../movielens/silver
 
-# RUN with Hadoop Cluster
+# MovieLens – Spark ETL – Local run
 
   1. Cluster setup (Docker) Start containers: 
   docker start hadoop-master hadoop-worker1 hadoop-worker2
