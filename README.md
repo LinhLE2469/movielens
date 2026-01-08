@@ -45,68 +45,62 @@ movielens/
 
   docker start hadoop-master hadoop-worker1 hadoop-worker2
 
-  2. Enter Container:
+  2. Copy data from local machine to Hadoop master (HOST)
+
+  docker cp <local_path>/movies.csv hadoop-master:/tmp/movies.csv
+
+  docker cp <local_path>/ratings.csv hadoop-master:/tmp/ratings.csv
+  
+  example:
+
+  docker cp /Users/linhle/LinhLe/spark_project/movielens/raw/movies.csv hadoop-master:/tmp/movies.csv
+
+  docker cp /Users/linhle/LinhLe/spark_project/movielens/raw/ratings.csv hadoop-master:/tmp/ratings.csv
+
+  3. Enter Hadoop master container
 
   docker exec -it hadoop-master bash
 
-  3. Start Hadoop services:
+4. Start Hadoop services
 
-  start-dfs.sh
+start-dfs.sh
 
-  start-yarn.sh
+start-yarn.sh
 
-  4. Verify services:
+5. Verify Hadoop services
 
-  jps
+jps
 
-  Check if you see : NameNode, SecondaryNameNode, ResourceManager
+6. Verify data inside container
 
-  5. Copy data from local to container hadoop-master:
+ls -lh /tmp/movies.csv /tmp/ratings.csv
 
-  docker cp < your local path > hadoop-master:/tmp/movies.csv
+7. Load data into HDFS (RAW)
 
-  docker cp < your local path > hadoop-master:/tmp/ratings.csv
+hdfs dfs -mkdir -p /data/movielens/raw
 
-  example: docker cp /Users/linhle/LinhLe/spark_project/movielens/raw/movies.csv hadoop-master:/tmp/movies.csv
+hdfs dfs -put -f /tmp/movies.csv /data/movielens/raw/
 
-  6. Verify if data is loaded in container:
+hdfs dfs -put -f /tmp/ratings.csv /data/movielens/raw/
 
-  docker exec -it hadoop-master bash -lc "ls -lh /tmp/movies.csv /tmp/ratings.csv"
+Verify: 
 
-  docker exec -it hadoop-master bash -lc "ls -lh /tmp/movies.csv /tmp/movies.csv"
+hdfs dfs -ls /data/movielens/raw
 
-  7. Create folder in HDFS ( you should be inside container):
+8. Copy Spark ETL script to Hadoop master (HOST)
 
-  hdfs dfs -mkdir -p /user/root/movielens/raw &&
+Exit container: exit
 
-  hdfs dfs -put -f /tmp/movies.csv /user/root/movielens/raw/ &&
+docker cp <local_path>/spark_ETL.py hadoop-master:/tmp/spark_ETL.py
 
-  hdfs dfs -put -f /tmp/ratings.csv /user/root/movielens/raw/ &&
+9. Run Spark ETL job (INSIDE container)
 
-  hdfs dfs -ls /user/root/movielens/raw
+docker exec -it hadoop-master bash
 
-  8. Verify the output ( check if the data is stored in HDFS):
-
-  hdfs dfs -ls /data/movielens/raw
-
-  9. Copy pipeline (spark_ETL.py) to container hadoop-master:
-
-  docker cp < your local path > hadoop-master:/tmp/spark_ETL.py
-
-  example:
-  docker cp /Users/linhle/LinhLe/spark_project/movielens/spark_ETL.py hadoop-master:/tmp/spark_ETL.py
-
-  10. Run job :
-
-  spark-submit --master local[*] /tmp/spark_ETL.py \
+spark-submit --master local[*] /tmp/spark_ETL.py \
   --input hdfs:///data/movielens/raw \
   --output hdfs:///data/movielens/silver
 
-  11. Verify :
-  
-  hdfs dfs -ls /data/movielens/silver
-  
+10. Verify Spark output in HDFS
 
-
-
-
+hdfs dfs -ls /data/movielens/silver
